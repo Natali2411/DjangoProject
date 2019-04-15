@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from DjangoProject.wsgi import test_1
+from DjangoProject.wsgi import test_1, current_datetime
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/', test_1)
+    path('test/', test_1),
+    path('current_date/', current_datetime)
 ]

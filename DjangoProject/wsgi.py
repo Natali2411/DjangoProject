@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 from django.http import HttpResponse, Http404
+from django.template import Template, Context, RequestContext
+from django.template.loader import get_template, select_template
 import datetime
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DjangoProject.settings')
@@ -29,4 +31,12 @@ def hours_ahead(request, offset):
         raise Http404()
     dt = datetime.datetime.now() + datetime.timedelta(hours=offset)
     html = "<html><body>Через %s часов будет %s.</body></html>" % (offset, dt)
+    return HttpResponse(html)
+
+
+def current_datetime(request):
+    now = datetime.datetime.now()
+    t = get_template('current_datetime.html')
+    ctx = Context({'current_date': now})
+    html = t.render(ctx)
     return HttpResponse(html)
